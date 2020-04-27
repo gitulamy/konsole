@@ -1,0 +1,25 @@
+{
+  "name": "@gitul/konsole",
+  "version": "1.0.0",
+  "description": "A console extender to prefix datetime and so on",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "console",
+    "datetime",
+    "date",
+    "time"
+  ],
+  "author": "Hojin Choi <hojin.choi@gmail.com>",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gitulamy/konsole.git"
+  },
+  "bugs": {
+    "url": "https://github.com/gitulamy/konsole/issues"
+  },
+  "homepage": "https://github.com/gitulamy/konsole#readme"
+}
