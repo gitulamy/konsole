@@ -29,36 +29,36 @@ You can customize konsole with 'set' method of the object which is return from
 var konsole = require('@gitul/konsole');
 ```
 
-the konsole object is global.console itself, and which is added some more functions.
+the **konsole** object is **global.console** itself, and which is added some more functions.
 so you can tweak these features with console.set method, but it is not recommend for
 compatibilities.
 
 Change date/time format
 -----------------------
 
-We use a simple strftime function which implements widely adopted %-prefixed tokens replacing.
-The default format is '%F %T.%f' (which means '%Y-%m-%d %H:%M:%S.%f'; e.g 2000-01-23 12:34:56.789).
-You can customizing with 'set' metho of konsole.
+We use a simple strftime function which implements **%-prefixed** date/time value replacer.
+The default format of konsole is **'%F %T.%f'** (which means **'%Y-%m-%d %H:%M:%S.%f'**;
+*e.g 2000-01-23 12:34:56.789*). You can customize with **konsole.set** method.
 
 ```javascript
 var konsole = require('@gitul/konsole');
-konsole.set('date-format', '%H:%M:%S.%f');
+konsole.set('date-format', '%H:%M:%S');
 
 console.debug("Hello world?");
 
 -- run --
 
-13:27:36.110 Hello, world?
+13:27:36 Hello, world?
 ```
 
-Above example produce just only time related stuffs for date/time field.
+Above example produce just only time related field (%H:%M:%S).
 
 Add log caller location
 -----------------------
 
 Log locations sometimes help your debugging works, for e.g.,
 
-```
+```javascript
 function func1() {
     console.debug('CHECK 1');
     if (blah) {
@@ -79,8 +79,8 @@ func1();
 ```
 
 Tracing the 'CHECK number' lines are good for debugging in runtime. Those lines are simply used
-and deleted after debugging. The ''numbers'' are needed for distinguishing locations.
-To solve like this problem, just use like this.
+for flow checking and deleted after debugging. The different **numbers** are needed for
+distinguishing source locations. To solve like this problem, just use as this.
 
 ```javascript
 var konsole = require('@gitul/konsole');
@@ -109,6 +109,8 @@ function func1() {
 
 func1();
 ```
+
+Only we need is the reapeated line **console.debug('CHECK');**. This makes your debugging simple.
 
 Let's test!
 
@@ -148,4 +150,8 @@ Run again!
 2020-04-28 20:13:40.277 CHECK at func1 (a.js:24:13)
 ```
 
-You can see more simple log.
+You can check more simple logs but meaning clear.
+
+**NOTICE**: We use 'new Error().stack' mechanism for checking call stack, and which is
+expensive way, so it is recommended to be removed in production mode.
+
