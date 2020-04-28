@@ -2,12 +2,16 @@
  * Console date/time prefixer
  * (C) 2020 Copyright Hojin Choi <hojin.choi@gmail.com>
  */
+process.stdout.write("Konsole..\n");
+let strftime = require('./strftime');
 
 let options = {
+    'date-format': '%F %T.%f',
     'log-caller': false,
-    'log-caller-root': null,
+    'strip-prefix': null,
     'log-caller-frames': 1,
     'color': '',
+    //-- internal use --//
     'coloroff': ''
 };
 
@@ -30,8 +34,8 @@ function getCaller() {
     let max = options['log-caller-frames'];
     for(let count = 0; count < max; ++count) {
         frame = stack[3+count].trim();
-        if (options['log-caller-root']) {
-            frame = frame.replace(options['log-caller-root'], '');
+        if (options['strip-prefix']) {
+            frame = frame.replace(options['strip-prefix'], '');
         }
         frames.push(frame)
     }
@@ -41,7 +45,7 @@ function getCaller() {
 function set(k,v) {
     console.assert(Object.keys(options).indexOf(k) != -1, 'Unknown konsole key: ' + k);
 
-    if (k == 'log-caller-root' && !v.endsWith('/')) {
+    if (k == 'strip-prefix' && !v.endsWith('/')) {
         v += '/';
     }
     else if (options['color']) {
@@ -57,11 +61,7 @@ function set(k,v) {
 
 let wrapper = (obj, func) => {
     let _wrapper = (...args) => {
-        let now = new Date();
-        let t = now.getTime();
-        now = new Date(t - now.getTimezoneOffset()*60000 ).toISOString();
-        now = now.substr(0,10) + ' ' + now.substr(11,8) + '.' + ('000'+(t % 1000)).substr(-3);
-
+        let now = strftime(options['date-format'], new Date());
         let prefix = [now];
         let postfix = [];
 
