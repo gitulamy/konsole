@@ -2,7 +2,7 @@
  * Console date/time prefixer
  * (C) 2020 Copyright Hojin Choi <hojin.choi@gmail.com>
  */
-process.stdout.write("Konsole..\n");
+
 let strftime = require('./strftime');
 
 let options = {
