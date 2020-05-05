@@ -4,9 +4,9 @@
 MAIN FUNCTION
 =============
 
-* You can add date/time stamp before your log line.
-* console methods(info/error/warn/debug/log) are changed to prefix datetime stamp.
-* One time use of 'require' changes global console object.
+* You can add date/time stamp before every log line.
+* All **console** methods(info/error/warn/debug/log) are changed to prefix datetime stamp.
+* One time use of **'require'** changes global console object.
 
 ```
 $ cat your.js
@@ -23,7 +23,7 @@ That's it!
 CUSTOMIZATION
 =============
 
-You can customize konsole with 'set' method of the object which is return from
+You can customize konsole with 'set' method of **konsole**
 
 ```javascript
 var konsole = require('@gitul/konsole');
@@ -36,7 +36,7 @@ compatibilities.
 Change date/time format
 -----------------------
 
-We use a simple strftime function which implements **%-prefixed** date/time value replacer.
+We use a simple strftime function which implements **%-format** date/time value replacer.
 The default format of konsole is **'%F %T.%f'** (which means **'%Y-%m-%d %H:%M:%S.%f'**;
 *e.g 2000-01-23 12:34:56.789*). You can customize with **konsole.set** method.
 
@@ -51,7 +51,7 @@ console.debug("Hello world?");
 13:27:36 Hello, world?
 ```
 
-Above example produce just only time related field (%H:%M:%S).
+Above example produces just only time related field (%H:%M:%S).
 
 Add log caller location
 -----------------------
@@ -78,7 +78,7 @@ function func1() {
 func1();
 ```
 
-Tracing the 'CHECK number' lines are good for debugging in runtime. Those lines are simply used
+Tracing with 'CHECK number' are good for debugging in runtime. Those lines are simply used
 for flow checking and deleted after debugging. The different **numbers** are needed for
 distinguishing source locations. To solve like this problem, just use as this.
 
@@ -129,7 +129,7 @@ Strip caller's common path
 --------------------------
 
 As you see above example, the project root path is not necessary, so we can specify
-with `strip-prefix` to stripping out the paths.
+with `strip-prefix` to strip out the paths.
 
 ```javascript
 var konsole = require('@gitul/konsole');
@@ -150,7 +150,7 @@ Run again!
 2020-04-28 20:13:40.277 CHECK at func1 (a.js:24:13)
 ```
 
-You can check more simple logs but meaning clear.
+This is simpler and clear.
 
 **NOTICE**: We use 'new Error().stack' mechanism for checking call stack, and which is
 expensive way, so it is recommended to be removed in production mode.
