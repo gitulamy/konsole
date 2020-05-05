@@ -11,11 +11,11 @@ var strftime = require('../strftime');
 
 process.stderr.write("* test1 begin..\n");
 
-let s;
-let t1 = new Date(2020,  4 -1, 26, 12, 34, 56); //Anytime Sunday.
-let t2 = new Date(1970,  1 -1,  1,  0,  0,  0); //Origin of c-style strftime
-let t3 = new Date(1988,  8 -1,  1,  0,  0,  0); //DST in ROK
-let t4 = new Date(1908,  4 -1,  1,  6,  0,  0); //The first day of KST (+0830)
+var s;
+var t1 = new Date(2020,  4 -1, 26, 12, 34, 56); //Anytime Sunday.
+var t2 = new Date(1970,  1 -1,  1,  0,  0,  0); //Origin of c-style strftime
+var t3 = new Date(1988,  8 -1,  1,  0,  0,  0); //DST in ROK
+var t4 = new Date(1908,  4 -1,  1,  6,  0,  0); //The first day of KST (+0830)
 
 s = strftime('%Y-%m-%d %H:%M:%S', t1);
 console.log(s);
@@ -32,7 +32,7 @@ console.assert( s === '1988-08-01 00:00:00 +1000', 'Test 3');
 
 s = strftime('%Y-%m-%d %H:%M:%S %z', t4);
 console.log(s, t4.getTimezoneOffset());
-console.assert( s === '1908-04-01 06:00:00 +0830', 'Test 4');
+console.assert( s === '1908-04-01 06:00:00 +0830' || s === '1908-04-01 06:00:00 +0900', 'Test 4');
 
 s = strftime('%F %T', t1);
 console.log(s)

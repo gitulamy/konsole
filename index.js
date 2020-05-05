@@ -59,8 +59,9 @@ function set(k,v) {
     options[k] = v;
 }
 
-var wrapper = (obj, func) => {
-    var _wrapper = (...args) => {
+function wrapper (obj, func) {
+    function _wrapper() {
+        var args = Array.prototype.slice.call(arguments);
         var now = strftime(options['date-format'], new Date());
         var prefix = [now];
         var postfix = [];
@@ -82,10 +83,12 @@ var wrapper = (obj, func) => {
     return _wrapper;
 }
 
-for(var func of [ 'log', 'debug', 'info', 'warn', 'error' ]) {
+var methods = [ 'log', 'debug', 'info', 'warn', 'error' ];
+for(var i=0; i<methods.length; i++ ) {
+    var func = methods[i];
     global.console[func] = wrapper(global.console, global.console[func]);
 }
 
-Object.assign(global.console, { COLORS, set });
+Object.assign(global.console, { COLORS: COLORS, set: set });
 
 Object.assign(module.exports, global.console);

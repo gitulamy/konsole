@@ -9,9 +9,9 @@ function strftime(fmt, t)
     if (! t instanceof Date) {
         t = new Date();
     }
-    let G = t.toISOString();        //GMT
-    let doubled = new Date(t.getTime() - t.getTimezoneOffset() * 60000);
-    let L = doubled.toISOString();  //Local
+    var G = t.toISOString();        //GMT
+    var doubled = new Date(t.getTime() - t.getTimezoneOffset() * 60000);
+    var L = doubled.toISOString();  //Local
 
     var out = '';
     var tokens = null;
