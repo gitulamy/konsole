@@ -152,6 +152,22 @@ Run again!
 
 This is simpler and clear.
 
+---
+
+Call stack level
+----------------
+
+If you need more than one frame, you can set calling log level.
+
+```javascript
+var konsole = require('@gitul/konsole');
+konsole.set('log-caller', true);
+konsole.set('log-caller-frames', 2);
+konsole.set('strip-prefix', __dirname );
+```
+
+This will log top most two levels from call stack.
+
 **NOTICE**: We use 'new Error().stack' mechanism for checking call stack, and which is
 expensive way, so it is recommended to be removed in production mode.
 
