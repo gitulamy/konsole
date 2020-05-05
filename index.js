@@ -3,9 +3,9 @@
  * (C) 2020 Copyright Hojin Choi <hojin.choi@gmail.com>
  */
 
-let strftime = require('./strftime');
+var strftime = require('./strftime');
 
-let options = {
+var options = {
     'date-format': '%F %T.%f',
     'log-caller': false,
     'strip-prefix': null,
@@ -15,7 +15,7 @@ let options = {
     'coloroff': ''
 };
 
-let COLORS = {
+var COLORS = {
     red:     '\x1b[1;31m',
     green:   '\x1b[1;32m',
     yellow:  '\x1b[1;33m',
@@ -28,11 +28,11 @@ let COLORS = {
 };
 
 function getCaller() {
-    let stack = new Error().stack;
+    var stack = new Error().stack;
     stack = stack.split('\n');
     frames = []
-    let max = options['log-caller-frames'];
-    for(let count = 0; count < max; ++count) {
+    var max = options['log-caller-frames'];
+    for(var count = 0; count < max; ++count) {
         frame = stack[3+count].trim();
         if (options['strip-prefix']) {
             frame = frame.replace(options['strip-prefix'], '');
@@ -59,11 +59,11 @@ function set(k,v) {
     options[k] = v;
 }
 
-let wrapper = (obj, func) => {
-    let _wrapper = (...args) => {
-        let now = strftime(options['date-format'], new Date());
-        let prefix = [now];
-        let postfix = [];
+var wrapper = (obj, func) => {
+    var _wrapper = (...args) => {
+        var now = strftime(options['date-format'], new Date());
+        var prefix = [now];
+        var postfix = [];
 
         if (options['log-caller']) {
             postfix.push(getCaller());
@@ -82,7 +82,7 @@ let wrapper = (obj, func) => {
     return _wrapper;
 }
 
-for(let func of [ 'log', 'debug', 'info', 'warn', 'error' ]) {
+for(var func of [ 'log', 'debug', 'info', 'warn', 'error' ]) {
     global.console[func] = wrapper(global.console, global.console[func]);
 }
 
