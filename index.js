@@ -32,11 +32,12 @@ var options = {
 
 function getCaller() {
     var stack = new Error().stack;
+    var startFrame = 3;
     stack = stack.split('\n');
     frames = []
-    var max = options['log-caller-frames'];
-    for(var count = 0; count < max; ++count) {
-        frame = stack[3+count].trim();
+    var max = Math.min(options['log-caller-frames']+startFrame, stack.length);
+    for(var count = startFrame; count < max; ++count) {
+        frame = stack[count].trim();
         if (options['strip-prefix']) {
             frame = frame.replace(options['strip-prefix'], '');
         }
